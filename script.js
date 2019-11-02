@@ -5,6 +5,7 @@
 const KeyBoard = {
 
     elements: {
+        text: null,
         main: null,
         itemsContainer: null,
         items: []
@@ -20,7 +21,9 @@ const KeyBoard = {
     },
 
     start() {
-
+        this.elements.text = document.createElement('textarea');
+        this.elements.main = document.createElement('div');
+        this.elements.itemsContainer = document.createElement('div');
     },
 
     _addItems() {
@@ -44,6 +47,7 @@ window.onload(function() {
     KeyBoard.start();
 });
     
+
 // document.createElement('div');
 // let texting = document.createElement('textarea');
 // let body = document.querySelector('body');
