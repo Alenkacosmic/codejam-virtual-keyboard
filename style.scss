@@ -1,0 +1,37 @@
+.keyboard {
+    position: fixed;
+    width: 70%;
+    height: 200px;
+    left: auto;
+    right: auto;
+    background: rgba(250, 146, 224, 0.253);
+}
+.keyboard_items {
+    text-align: center;
+}
+.keyboard_item {
+    display: inline-flex;
+    position: relative;
+    height: 35px;
+    width: 6%;
+    max-width: 75px;
+    margin: 2px;
+    border-radius: 3px;
+    border: none;
+    background: rgba(59, 133, 129, 0.212);
+    color: rgb(34, 28, 28);
+    outline: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+}
+.keyboard_item:active {
+    background: rgba(19, 75, 72, 0.308);
+}
+.keyboard_item--big {
+    width: 12%;
+}
+.keyboard_item--biggest {
+    width: 24%;
+}
