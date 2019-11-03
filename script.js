@@ -4,11 +4,6 @@ const KeyBoard = {
         text: null,
         main: null,
         itemsContainer: null,
-        items: []
-    },
-
-    eventHandlers: {
-        oninput: null,
     },
 
     properties: {
@@ -124,123 +119,46 @@ const KeyBoard = {
 
     },
 
-    triggerEvent(handlerName) {
-
-    },
-
     toggleCapsLock() {
+        this.properties.capsLock = !this.properties.capsLock;
 
+        for (let key of this.langChar[item][0] || this.langChar[item][1]) {
+                key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+        }
     },
 
-    writing(initialValue, oninput) {
-        
+    writing(initialValue) {
+        // this.properties.value = initialValue || '';
         console.log(initialValue);
+        if(initialValue.type === 'keyup') { 
+            let write = document.querySelector('.write_me');
+            write.textContent += initialValue.key;
 
-
+        } else if(initialValue.type === 'mouseup') {
+            let write = document.querySelector('.write_me');
+            write.textContent += initialValue.target.textContent;
+        }
     },
 
-    lighthning() {
-        
+    deleting(initialValue) {
+
+        if (initialValue === 0) {
+            return;
+
+        } else if(initialValue.code === 'Backspace' && initialValue.type === 'keyup' || initialValue.type === 'mouseup') {
+            let cut = document.querySelector('.write_me');
+            cut.textContent += cut.textContent.substring(0, cut.textContent.length - 1);
+        }
     }
 
-    toggleShift() {
+    // lighthning() {
         
-    }
+    // }
 }
 window.addEventListener('DOMContentLoaded', function() {
     KeyBoard.start();
     KeyBoard.addItems();
-    document.addEventListener('keydown', KeyBoard.writing);
+    // KeyBoard.writing();
+    document.addEventListener('keyup', KeyBoard.writing);
     document.addEventListener('mouseup', KeyBoard.writing);
-});
-
-
-    
-
-
-  
-    //                     // switch (item) {
-
-                //     case 'Backspace':
-                //         itemElement.classList.add('keyboard_item--big');
-                //         itemElement.addEventListener('click', () => {
-                //             this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-                //             this._triggerEvent('oninput');
-                //         });
-                //         break;
-
-                //     case 'CapsLock':
-                //         itemElement.classList.add('keyboard_item--big');
-                //         itemElement.addEventListener('click', () => {
-                //             this._toggleCapsLock();
-                //             itemElement.classList.toggle('keyboard_item:active', this.properties.capsLock);
-                //         });
-                //         break;
-
-                //     case 'Enter':
-                //         itemElement.classList.add('keyboard_item--big');
-                //         itemElement.addEventListener('click', () => {
-                //             this.properties.value += '\n';
-                //             this._triggerEvent('oninput');
-                //         });
-                //         break;
-
-                //     case 'Tab':
-                //         itemElement.classList.add('keyboard_item--big');
-                //         itemElement.addEventListener('click', () => {
-                //             this.properties.value += '    ';
-                //             this._triggerEvent('oninput');
-                //         });
-                //         break;
-
-                //     case 'Space':
-                //         itemElement.classList.add('keyboard_item--biggest');
-                //         itemElement.addEventListener('click', () => {
-                //             this.properties.value += ' ';
-                //             this._triggerEvent('oninput');
-                //         });
-                //         break;
-
-                //     default:
-                //         itemElement.textContent = item.toLowerCase();
-                //         itemElement.addEventListener('click', () => {
-                //             this.properties.value += this.properties.capsLock ? item.toUpperCase() : item.toLowerCase();
-                //             this._triggerEvent('oninput');
-                //         });
-                //         break;
-                // }
-    
-    //     _triggerEvent(handlerName) {
-    //         if (typeof this.eventHandlers[handlerName] == "function") {
-    //             this.eventHandlers[handlerName](this.properties.value);
-    //         }
-    //     },
-    
-    //     _toggleCapsLock() {
-    //         this.properties.capsLock = !this.properties.capsLock;
-    
-    //         for (const key of this.elements.keys) {
-    //             if (key.childElementCount === 0) {
-    //                 key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
-    //             }
-    //         }
-    //     },
-    
-    //     open(initialValue, oninput, onclose) {
-    //         this.properties.value = initialValue || "";
-    //         this.eventHandlers.oninput = oninput;
-    //         this.eventHandlers.onclose = onclose;
-    //         this.elements.main.classList.remove("keyboard--hidden");
-    //     },
-    
-    //     close() {
-    //         this.properties.value = "";
-    //         this.eventHandlers.oninput = oninput;
-    //         this.eventHandlers.onclose = onclose;
-    //         this.elements.main.classList.add("keyboard--hidden");
-    //     }
-    // };
-    
-    // window.addEventListener("DOMContentLoaded", function () {
-    //     Keyboard.init();
-    // });
+});      
