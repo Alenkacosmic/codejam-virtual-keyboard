@@ -1,6 +1,6 @@
 .write_me {
     position: fixed;
-    width: 70%;
+    width: 80%;
     height: 200px;
     left: auto;
     right: auto;
@@ -9,12 +9,12 @@
 
 .keyboard {
     position: fixed;
-    width: 70.5%;
-    // height: 220px;
+    width: 80.5%;
     top: 220px;
     left: auto;
     right: auto;
     background: rgba(250, 146, 224, 0.253);
+    border-radius: 4px;
 }
 
 .keyboard_items {
@@ -28,10 +28,12 @@
     width: 6%;
     max-width: 75px;
     margin: 2px;
+    padding: 0;
     border-radius: 3px;
     border: none;
     background: rgba(39, 179, 172, 0.589);
-    color: rgb(34, 28, 28);
+    color: rgb(14, 59, 57);
+    font-weight: bold;
     outline: none;
     cursor: pointer;
     align-items: center;
@@ -39,14 +41,12 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-.keyboard_item:active {
-    background: rgba(19, 75, 72, 0.308);
-}
-
 .keyboard_item--big {
     width: 12%;
+    max-width: 100px;
 }
 
 .keyboard_item--biggest {
-    width: 24%;
+    width: 30%;
+    max-width: 200px;
 }
