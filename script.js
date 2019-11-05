@@ -80,6 +80,7 @@ const KeyBoard = {
     },
 
     start() {
+
         this.elements.text = document.createElement('textarea');
         this.elements.main = document.createElement('div');
         this.elements.itemsContainer = document.createElement('div');
@@ -91,6 +92,7 @@ const KeyBoard = {
         this.elements.main.append(this.elements.itemsContainer);
         document.body.prepend(this.elements.main);
         document.body.prepend(this.elements.text);
+        
     },
 
     addItems() {
@@ -116,49 +118,44 @@ const KeyBoard = {
                 lineElement.append(itemElement);
             });
         });
-
-    },
-
-    toggleCapsLock() {
-        this.properties.capsLock = !this.properties.capsLock;
-
-        for (let key of this.langChar[item][0] || this.langChar[item][1]) {
-                key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
-        }
     },
 
     writing(initialValue) {
-        // this.properties.value = initialValue || '';
-        console.log(initialValue);
+
         if(initialValue.type === 'keyup') { 
-            let write = document.querySelector('.write_me');
-            write.textContent += initialValue.key;
+
+            if (KeyboardEvent.code === this.langChar) { 
+                let write = document.querySelector('.write_me');
+                write.textContent += initialValue.textContent.KeyboardEvent.key;
+            }
 
         } else if(initialValue.type === 'mouseup') {
+
             let write = document.querySelector('.write_me');
             write.textContent += initialValue.target.textContent;
+
         }
     },
 
-    deleting(initialValue) {
+    backlight(initialValue) {
 
-        if (initialValue === 0) {
-            return;
+        if(initialValue.type === 'keydown') { 
+            let color = document.querySelector('.keyboard_item');
+            color.classList.add('.keyboard_item:active');
 
-        } else if(initialValue.code === 'Backspace' && initialValue.type === 'keyup' || initialValue.type === 'mouseup') {
-            let cut = document.querySelector('.write_me');
-            cut.textContent += cut.textContent.substring(0, cut.textContent.length - 1);
+        } else if(initialValue.type === 'mousedown') {
+            let color = document.querySelector('.keyboard_item');
+            color.classList.add('.keyboard_item:active');
         }
-    }
-
-    // lighthning() {
-        
-    // }
+    }   
 }
+
 window.addEventListener('DOMContentLoaded', function() {
     KeyBoard.start();
     KeyBoard.addItems();
-    // KeyBoard.writing();
     document.addEventListener('keyup', KeyBoard.writing);
     document.addEventListener('mouseup', KeyBoard.writing);
+    document.addEventListener('keydown', KeyBoard.backlight);
+    document.addEventListener('mousedown', KeyBoard.backlight);
+
 });      
