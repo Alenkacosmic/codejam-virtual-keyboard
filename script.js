@@ -13,7 +13,7 @@ const KeyBoard = {
     },
 
     langChar: {
-        'Backquote': ['\`', '~'],
+        'Backquote': ['`', '~'],
         'Digit1': ['1', '1', '!'], 
         'Digit2': ['2', '2', '@'], 
         'Digit3': ['3', '3', '#'], 
@@ -115,13 +115,15 @@ const KeyBoard = {
                     lineElement.classList.add('row');
                     this.elements.itemsContainer.append(lineElement);
 
-                    box[index].forEach(item => {
+                    box[index].forEach((item) => {
                         const itemElement = document.createElement('button');
                         itemElement.append(this.langChar[item][0]);
                         itemElement.classList.add('keyboard_item');
+                        itemElement.classList.add(item);
                         lineElement.append(itemElement);
                     });
                 });
+
             } else { 
 
                 itemPosition.forEach((line, index, box) => {
@@ -134,6 +136,7 @@ const KeyBoard = {
                         const itemElement = document.createElement('button');
                         itemElement.append(this.langChar[item][1]);
                         itemElement.classList.add('keyboard_item');
+                        itemElement.classList.add(item);
                         lineElement.append(itemElement);
                     });
                 });
@@ -141,32 +144,78 @@ const KeyBoard = {
 
     },
 
+    writing(initialValue) {
+
+        if(event.target.tagName === 'BUTTON') {
+
+            this.elements.text.textContent += initialValue.target.textContent;
+
+        } else if(event.type === 'keyup') {
+
+            let button = document.querySelector('.' + event.code);
+            this.elements.text.textContent += button.textContent;
     
-    backlight() {
+        }
 
-        document.addEventListener('keydown', () => {
+    },
 
-            let color = document.querySelector('.keyboard_item');
-            color.classList.add('.keyboard_item--pressed');
-        });
+    backlight(event) {
+        
+        if(event.target.tagName === 'BUTTON') {
 
-        // } else if(initialValue.type === 'mousedown') {
-        //     let color = document.querySelector('.keyboard_item');
-        //     color.classList.add('.keyboard_item:active');
-        // }
-       
-    }
-};
+            event.target.classList.add('item_pressed');
 
+        } else if(event.type === 'keydown') {
+
+            let button = document.querySelector('.' + event.code);
+            button.classList.add('item_pressed');
+    
+        }
+    },
+
+    regularButton(event) {
+
+        if(event.type === 'mouseup') {
+
+            event.target.classList.remove('item_pressed');
+
+        } else if(event.type === 'keyup') {
+
+            let button = document.querySelector('.' + event.code);
+            button.classList.remove('item_pressed');
+    
+        }
+    },
+
+    switchMe() {
+
+        if(event.code === 'ControlLeft' && event.code === 'AltLeft') { 
+
+            if(localStorage.lang === null || localStorage.lang === 'ru') {
+
+                localStorage.setItem('lang', 'en');
+                
+                
+                }
+            } else {
+
+                localStorage.setItem('lang', 'ru');
+                this.elements.currentState = 'ru';
+    
+              }
+            
+    },
+}
 
 window.addEventListener('DOMContentLoaded', function() {
     
     KeyBoard.start();
     KeyBoard.addItems();
-    KeyBoard.writing();
-    KeyBoard.backlight();
-    document.addEventListener('keyup', KeyBoard.writing);
-    document.addEventListener('mouseup', KeyBoard.writing);
+    document.addEventListener('keydown', KeyBoard.switchMe.bind(KeyBoard));
+    document.addEventListener('mouseup', KeyBoard.writing.bind(KeyBoard));
+    document.addEventListener('keyup', KeyBoard.writing.bind(KeyBoard));
+    document.addEventListener('keyup', KeyBoard.regularButton);
+    document.addEventListener('mouseup', KeyBoard.regularButton);
     document.addEventListener('keydown', KeyBoard.backlight);
     document.addEventListener('mousedown', KeyBoard.backlight);
 
