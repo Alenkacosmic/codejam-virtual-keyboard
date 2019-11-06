@@ -39,12 +39,27 @@
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    -webkit-tap-highlight-color: transparent;
+    // -webkit-tap-highlight-color: transparent;
 }
 
-.keyboard_item:active {
+.item_pressed {
+    display: inline-flex;
+    position: relative;
+    height: 45px;
+    width: 6%;
+    max-width: 75px;
+    margin: 5px;
+    padding: 0;
+    border-radius: 3px;
+    border: none;
     background-color: rgba(17, 85, 81, 0.651);
+    color: rgb(14, 59, 57);
     box-shadow: 0px 23px 12px -16px rgba(97, 15, 76, 0.747);
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
     transform: translateY(4px);
 }
 
