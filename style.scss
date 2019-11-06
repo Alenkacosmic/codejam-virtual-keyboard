@@ -39,10 +39,9 @@
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    // -webkit-tap-highlight-color: transparent;
 }
 
-.item_pressed {
+.keyboard_item:active {
     display: inline-flex;
     position: relative;
     height: 45px;
@@ -60,7 +59,7 @@
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    transform: translateY(4px);
+    transform: translateY(5px);
 }
 
 .keyboard_item--big {
