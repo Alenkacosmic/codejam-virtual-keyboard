@@ -4,11 +4,12 @@ const KeyBoard = {
         text: null,
         main: null,
         itemsContainer: null,
+        currentState: 'en',
     },
 
     properties: {
         value: '',
-        capsLock: false
+        capsLock: false,
     },
 
     langChar: {
@@ -92,67 +93,78 @@ const KeyBoard = {
         this.elements.main.append(this.elements.itemsContainer);
         document.body.prepend(this.elements.main);
         document.body.prepend(this.elements.text);
-        
+
     },
 
     addItems() {
         
-        const itemPosition = [
-            ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'],
-            ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'BackSlash'],
-            ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'],
-            ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ShiftRight'],
-            ['ControlLeft', 'AltLeft', 'Delete', 'PageUp', 'PageDown', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown']
-        ];
+        const itemPosition = 
+            [
+                ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'],
+                ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'BackSlash'],
+                ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'],
+                ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ShiftRight'],
+                ['ControlLeft', 'AltLeft', 'Delete', 'PageUp', 'PageDown', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown']
+            ]
 
-        itemPosition.forEach((line, index, box) => {
+            if (this.elements.currentState === 'en') { 
 
-            const lineElement = document.createElement('div');
-            lineElement.classList.add('row');
-            this.elements.itemsContainer.append(lineElement);
+                itemPosition.forEach((line, index, box) => {
 
-            box[index].forEach(item => {
-                const itemElement = document.createElement('button');
-                itemElement.append(this.langChar[item][0]);
-                itemElement.classList.add('keyboard_item');
-                lineElement.append(itemElement);
-            });
-        });
-    },
+                    const lineElement = document.createElement('div');
+                    lineElement.classList.add('row');
+                    this.elements.itemsContainer.append(lineElement);
 
-    writing(initialValue) {
+                    box[index].forEach(item => {
+                        const itemElement = document.createElement('button');
+                        itemElement.append(this.langChar[item][0]);
+                        itemElement.classList.add('keyboard_item');
+                        lineElement.append(itemElement);
+                    });
+                });
+            } else { 
 
-        if(initialValue.type === 'keyup') { 
+                itemPosition.forEach((line, index, box) => {
 
-            if (KeyboardEvent.code === this.langChar) { 
-                let write = document.querySelector('.write_me');
-                write.textContent += initialValue.textContent.KeyboardEvent.key;
+                    const lineElement = document.createElement('div');
+                    lineElement.classList.add('row');
+                    this.elements.itemsContainer.append(lineElement);
+
+                    box[index].forEach(item => {
+                        const itemElement = document.createElement('button');
+                        itemElement.append(this.langChar[item][1]);
+                        itemElement.classList.add('keyboard_item');
+                        lineElement.append(itemElement);
+                    });
+                });
             }
 
-        } else if(initialValue.type === 'mouseup') {
-
-            let write = document.querySelector('.write_me');
-            write.textContent += initialValue.target.textContent;
-
-        }
     },
 
-    backlight(initialValue) {
+    
+    backlight() {
 
-        if(initialValue.type === 'keydown') { 
-            let color = document.querySelector('.keyboard_item');
-            color.classList.add('.keyboard_item:active');
+        document.addEventListener('keydown', () => {
 
-        } else if(initialValue.type === 'mousedown') {
             let color = document.querySelector('.keyboard_item');
-            color.classList.add('.keyboard_item:active');
-        }
-    }   
-}
+            color.classList.add('.keyboard_item--pressed');
+        });
+
+        // } else if(initialValue.type === 'mousedown') {
+        //     let color = document.querySelector('.keyboard_item');
+        //     color.classList.add('.keyboard_item:active');
+        // }
+       
+    }
+};
+
 
 window.addEventListener('DOMContentLoaded', function() {
+    
     KeyBoard.start();
     KeyBoard.addItems();
+    KeyBoard.writing();
+    KeyBoard.backlight();
     document.addEventListener('keyup', KeyBoard.writing);
     document.addEventListener('mouseup', KeyBoard.writing);
     document.addEventListener('keydown', KeyBoard.backlight);
