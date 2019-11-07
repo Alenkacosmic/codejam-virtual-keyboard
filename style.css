@@ -1,0 +1,75 @@
+.write_me {
+  position: fixed;
+  width: 80%;
+  height: 200px;
+  left: auto;
+  right: auto;
+  background: rgba(243, 211, 235, 0.171);
+}
+
+.keyboard {
+  position: fixed;
+  width: 80.5%;
+  top: 220px;
+  left: auto;
+  right: auto;
+  background: rgba(250, 146, 224, 0.253);
+  border-radius: 4px;
+}
+
+.keyboard_items {
+  text-align: center;
+}
+
+.keyboard_item {
+  display: inline-flex;
+  position: relative;
+  height: 45px;
+  width: 6%;
+  max-width: 75px;
+  margin: 5px;
+  padding: 0;
+  border-radius: 3px;
+  border: none;
+  background: rgba(39, 179, 172, 0.589);
+  color: #0e3b39;
+  box-shadow: 0px 10px 5px -4px rgba(226, 74, 188, 0.651);
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.item_pressed {
+  display: inline-flex;
+  position: relative;
+  height: 45px;
+  width: 6%;
+  max-width: 75px;
+  margin: 5px;
+  padding: 0;
+  border-radius: 3px;
+  border: none;
+  background-color: rgba(17, 85, 81, 0.651);
+  color: #0e3b39;
+  box-shadow: 0px 23px 12px -16px rgba(97, 15, 76, 0.747);
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(4px);
+}
+
+.keyboard_item--big {
+  width: 12%;
+  max-width: 100px;
+}
+
+.keyboard_item--biggest {
+  width: 30%;
+  max-width: 200px;
+}
+
+/*# sourceMappingURL=style.css.map */
